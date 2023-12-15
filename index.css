@@ -151,6 +151,7 @@ section {
     font-size: 85%;
 }
 
+
 textarea {
     background-color: var(--light-grey);
     padding: .8em;
@@ -242,12 +243,20 @@ img.loading {
     filter: none;
 }
 
-.query-wrap{
-    border: none;
+.query-chat{
+    border: 3px solid var(--medium-dark);
+    border-radius: var(--border-rad-lg);
+    padding: 10px;
+    width: 70%;
+    margin-top: 10px;
 }
 
 .reply-wrap{
-    border: none;
+    border: 3px solid rgb(32, 231, 25);
+    border-radius: var(--border-rad-lg);
+    padding: 10px;
+    width: 70%;
+    margin-top: 10px;
 }
 
 /* =================
