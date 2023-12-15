@@ -18,20 +18,39 @@
 		<main>	
 			<!-- The Setup -->	
 			<section id="setup-container">
-				<div class="setup-inner">
-					<img src="./images/subject.png">
-					<div class="speech-bubble-ai" id="speech-bubble-ai">
-						<p id="movie-boss-text">
-							Hi, I am Genna. Your AI powered associate assistant. How can I help you?
-						</p>
+				
+
+				<div style="max-height: 400px; overflow-y: auto;">
+					<div class="setup-inner">
+						<img src="./images/subject.png">
+						<div class="speech-bubble-ai" id="speech-bubble-ai">
+							<p id="movie-boss-text">
+								Hi, I am Genna. Your AI powered associate assistant. How can I help you?
+							</p>
+						</div>
 					</div>
+					<div class="query-wrap" id="query-wrap">
+						<p id="query"></p>
+					</div>
+					<div class="reply-hold" style="display: flex; justify-content: flex-end; width: 100%;">
+						<div class="reply-wrap" id="reply-wrap">
+							<p class id="reply"></p>
+						</div>
+					</div>
+					
+					<div id="loading" style="display: flex; width: 100%;height: 20px; justify-content: center;"></div>
 				</div>
+				
 				<div class="setup-inner setup-input-container" id="setup-input-container">
+					
 					<textarea id="setup-textarea" placeholder="Could you help me with leave balance?"></textarea>
 					<button class="send-btn" id="send-btn" aria-label="send">
 							<img src="images/send.svg" alt="send">
+							
 					</button>
+					
 				</div>
+				
 			</section>	
 			<!-- The Output -->	
 			<section class="output-container" id="output-container">

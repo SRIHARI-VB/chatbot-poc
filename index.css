@@ -61,7 +61,7 @@ header>img {
 
 header>a {
     color: var(--light);
-    font-size: 1.5em;
+    font-size: 1.5em;   
     text-decoration: none;
     padding: 1em 0;
 }
@@ -87,6 +87,11 @@ section {
       Setup 
      ================= */
 
+.setup-container {
+    max-height: 400px; /* Set a maximum height for the container, adjust as needed */
+    overflow-y: auto;
+}
+
 .setup-inner {
     display: flex;
     justify-content: space-around;
@@ -102,6 +107,7 @@ section {
 
 .setup-input-container {
     min-height: 74px;
+    width: 100%;
 }
 
 .speech-bubble-ai {
@@ -234,6 +240,14 @@ button:hover {
 img.loading {
     max-width: 40px;
     filter: none;
+}
+
+.query-wrap{
+    border: none;
+}
+
+.reply-wrap{
+    border: none;
 }
 
 /* =================
