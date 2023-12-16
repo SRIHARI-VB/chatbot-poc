@@ -87,9 +87,9 @@ section {
       Setup 
      ================= */
 
-.setup-container {
+.setup-wrapper {
     max-height: 400px; /* Set a maximum height for the container, adjust as needed */
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 .setup-inner {
@@ -97,6 +97,7 @@ section {
     justify-content: space-around;
     padding: 1.5em .5em;
     min-height: 234px;
+    margin-top: 10px;;
 }
 
 .setup-inner>img {
@@ -150,6 +151,7 @@ section {
     color: var(--dark);
     font-size: 85%;
 }
+
 
 
 textarea {

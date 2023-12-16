@@ -1,48 +1,70 @@
 const setupTextarea = document.getElementById('setup-textarea');
 const setupInputContainer = document.getElementById('setup-input-container');
 const setupContainer = document.getElementById('setup-container');
+const setupWrapper = document.getElementById('setup-wrapper');
 const movieBossText = document.getElementById('movie-boss-text');
 const chatBox = document.getElementById('chat-box');
-// const reply= document.getElementById('reply'); 
-// const replyWrap= document.getElementById('reply-wrap'); 
 const loading = document.getElementById('loading');
-// const query = document.getElementById('query');
-// const queryWrap = document.getElementById('query-wrap');
+
 const apiKey = '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';
 const url = 'https://ikez94vmpe.execute-api.us-east-1.amazonaws.com/v1/chatbot';
 
+// Create a MutationObserver instance
+const observer = new MutationObserver(() => {
+  setupWrapper.scrollTop = setupWrapper.scrollHeight;
+  console.log('mutation occured');
+});
+
+// Define the configuration for the observer
+const observerConfig = {
+  childList: true,  // Observe changes to the child nodes
+};
+
+// Start observing the chatBox
+observer.observe(chatBox, observerConfig);
 
 document.getElementById('send-btn').addEventListener('click', async () => {
    console.log('clicked'); 
 
   if (setupTextarea.value) {
-    
-    // queryWrap.style.border = '1px solid #000';
-    // queryWrap.style.borderRadius = '10px';
-    // queryWrap.style.padding = '10px';
-    // queryWrap.style.width = '75%';
-    // queryWrap.style.marginTop = '10px';
+    const sendBtn = document.getElementById('send-btn');
+    sendBtn.disabled = true; // Disable the button
 
-    // query.innerHTML = `<p>${setupTextarea.value}</p>`;
-
-    chatBox.appendChild(await createQuery());
-    
+    try{
+      chatBox.appendChild(await createQuery());
+    }catch (error) {
+      console.error('Error fetching bot reply:', error);
+    }
     
     
     loading.innerHTML = `<img src="images/loading.svg" class="loading" id="loading">`;
+
+    // Trigger the scroll manually after adding new content
+    // setupContainer.scrollTop = setupContainer.scrollHeight;
     
     
     // movieBossText.innerText = `Ok, just wait a second while my digital brain digests that...`;
   }
 
-  await fetchBotReply();
+  try {
+    await fetchBotReply();
+    
+  } catch (error) {
+      console.error('Error fetching bot reply:', error);
+  } finally {
+      const sendBtn = document.getElementById('send-btn');
+      sendBtn.disabled = false; // Enable the button
+      // setupContainer.scrollIntoView(true)
+    }
+  
   
   setupTextarea.value = '';
   loading.innerHTML = ``;
 
+
   // setupContainer.innerHTML = setupContainer.innerHTML;
   // setupInputContainer.innerHTML =`<p>dwdvdv</p>`;
-  // setupTextarea.focus();/
+  // setupTextarea.focus();
 
 }
 );
@@ -57,6 +79,7 @@ async function createQuery() {
   queryChat.style.padding = '10px';
   queryChat.style.width = '75%';
   queryChat.style.marginTop = '10px';
+  queryChat.style.marginBottom = '10px';
   return queryChat;
   
   // const query = document.getElementById('query');
@@ -110,8 +133,10 @@ async function fetchBotReply() {
 
     const data = await response.json();
     
+    
     chatBox.appendChild(await createReply(data.output.text));
-
+    // chatBox.appendChild(await createReply(data.output.text));
+    
     // reply.innerText = data.output.text;
     
     // replyWrap.style.border = '1px solid #000';
@@ -120,7 +145,8 @@ async function fetchBotReply() {
     // replyWrap.style.width = '70%';
     // replyWrap.style.marginTop = '10px';
 
-    
+    // let setupContainer = document.getElementById('setupContainer');
+    // setupContainer.scrollTop = setupContainer.scrollHeight;
     
 
     // console.log(data);
@@ -128,8 +154,9 @@ async function fetchBotReply() {
     console.error('Error fetching bot reply:', error);
     // Handle the error as needed
   }
+  
 }
 
-// {id: "cmpl-78rekXLd1GewCaHDNV4Dm5GlDUmui", object: "text_completion", created: 1682347234, model: "text-davinci-003", choices: [{text: " Excitedly enthusiastic!", index: 0, logprobs: null, finish_reason: "stop"}], usage: {prompt_tokens: 8, completion_tokens: 7, total_tokens: 15}}
+
 
 
