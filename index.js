@@ -30,67 +30,51 @@ document.getElementById('send-btn').addEventListener('click', async () => {
     const sendBtn = document.getElementById('send-btn');
     sendBtn.disabled = true; // Disable the button
 
+    // When the query is sent, add the query to the chatBox
     try{
       chatBox.appendChild(await createQuery());
     }catch (error) {
       console.error('Error fetching bot reply:', error);
     }
     
-    
+    // Loading animation
     loading.innerHTML = `<img src="images/loading.svg" class="loading" id="loading">`;
-
-    // Trigger the scroll manually after adding new content
-    // setupContainer.scrollTop = setupContainer.scrollHeight;
-    
-    
-    // movieBossText.innerText = `Ok, just wait a second while my digital brain digests that...`;
   }
 
+  // It fetches the bot reply from the API
   try {
     await fetchBotReply();
-    
   } catch (error) {
       console.error('Error fetching bot reply:', error);
   } finally {
       const sendBtn = document.getElementById('send-btn');
       sendBtn.disabled = false; // Enable the button
-      // setupContainer.scrollIntoView(true)
     }
   
-  
+  // Clear the textarea after fetching the bot reply
   setupTextarea.value = '';
-  loading.innerHTML = ``;
-
-
-  // setupContainer.innerHTML = setupContainer.innerHTML;
-  // setupInputContainer.innerHTML =`<p>dwdvdv</p>`;
-  // setupTextarea.focus();
+  // Remove the loading animation
+  loading.innerHTML = ''
 
 }
 );
 
+// Function to creates the query chat div
 async function createQuery() {
   const queryChat = document.createElement('div');
   queryChat.classList.add('query-chat');
   queryChat.innerHTML = `<p>${setupTextarea.value}</p>`;
   queryChat.style.border = '3px solid rgb(205, 39, 10)';
-
+  queryChat.style.boxShadow = '0px 1px 10px 3px rgb(238, 168, 168)';
   queryChat.style.borderRadius = '10px';
   queryChat.style.padding = '10px';
   queryChat.style.width = '75%';
   queryChat.style.marginTop = '10px';
   queryChat.style.marginBottom = '10px';
   return queryChat;
-  
-  // const query = document.getElementById('query');
-
-  // query.innerHTML = ``;
-
-  // setupInputContainer.innerHTML =`<p>dwdvdv</p>`;
-  // setupTextarea.focus();
-  
 }
 
+// Function to creates the reply chat div
 async function createReply(replyText) {
   const replyChat = document.createElement('div');
   replyChat.classList.add('reply-chat');
@@ -98,22 +82,12 @@ async function createReply(replyText) {
   replyChat.style.justifyContent = 'flex-end';
   replyChat.style.width = '100%';
   replyChat.innerHTML = `<div class="reply-wrap" id="reply-wrap">
-  <p>${replyText}</p>
-  </div>`;
-
-  // const replyWrap = document.getElementById('reply-wrap');
-  // replyWrap.style.border = '1px solid #000';
-  // replyWrap.style.borderRadius = '10px';
-  // replyWrap.style.padding = '10px';
-  // replyWrap.style.width = '70%';
-  // replyWrap.style.marginTop = '10px';
-
-
+                            <p>${replyText}</p>
+                          </div>`;
   return replyChat;
 }
 
-
-
+// Function to fetches the bot reply from the API
 async function fetchBotReply() {
   try {
     const response = await fetch(url, {
@@ -132,27 +106,11 @@ async function fetchBotReply() {
     }
 
     const data = await response.json();
-    
-    
+  
+    // After getting the reply add it to the chatBox
     chatBox.appendChild(await createReply(data.output.text));
-    // chatBox.appendChild(await createReply(data.output.text));
-    
-    // reply.innerText = data.output.text;
-    
-    // replyWrap.style.border = '1px solid #000';
-    // replyWrap.style.borderRadius = '10px';
-    // replyWrap.style.padding = '10px';
-    // replyWrap.style.width = '70%';
-    // replyWrap.style.marginTop = '10px';
-
-    // let setupContainer = document.getElementById('setupContainer');
-    // setupContainer.scrollTop = setupContainer.scrollHeight;
-    
-
-    // console.log(data);
   } catch (error) {
     console.error('Error fetching bot reply:', error);
-    // Handle the error as needed
   }
   
 }
